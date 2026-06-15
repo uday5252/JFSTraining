@@ -1,0 +1,42 @@
+create database employee_db;
+create database student_db;
+
+use employee_db;
+
+create table employees(
+id int, name varchar(15), age int, 
+salary int, jobrole varchar(20));
+
+insert into 
+employees values(100,"Raju",35, 40000, "Developer");
+insert into 
+employees values(101,"Ramu",45, 50000, "Tester");
+insert into 
+employees values(102,"Rani",25, 70000, "HR");
+insert into 
+employees values(103,"John",50, 90000, "Developer");
+insert into 
+employees values(104,"Tim",35, 50000, "Developer");
+insert into 
+employees values(105,"Mary",45, 20000, "Tester");
+
+
+select * from employees;
+
+select id as employee_id, name as employee_name 
+from employees;
+
+select id employee_id, name employee_name 
+from employees;
+
+-- to count age with duplicates 
+select count(age) as totalAgeCount from employees;
+
+-- to count age without duplicates 
+select count(distinct age) as uniqueAgeCount from employees;
+
+
+
+
+
+
