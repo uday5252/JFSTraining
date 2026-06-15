@@ -1,0 +1,202 @@
+
+ The `travel` Table (For Reference)
+
+| booking_id | customer_name | destination | category | ticket_price | passengers |
+| 1 | Alice | Paris | International | 800 | 2 |
+| 2 | Bob | New York | International | 900 | 1 |
+| 3 | Charlie | Tokyo | International | 1200 | 3 |
+| 4 | David | Miami | Domestic | 250 | 4 |
+| 5 | Emma | Paris | International | 800 | 1 |
+| 6 | Frank | Chicago | Domestic | 150 | 2 |
+| 7 | Grace | Miami | Domestic | 250 | 2 |
+
+-- Create the database
+CREATE DATABASE travel_db;
+USE travel_db;
+
+-- Create the travel table
+CREATE TABLE travel (
+    booking_id INT PRIMARY KEY,
+    customer_name VARCHAR(50),
+    destination VARCHAR(50),
+    category VARCHAR(20),
+    ticket_price INT,
+    passengers INT
+);
+
+-- Insert the sample data
+INSERT INTO travel (booking_id, customer_name, destination, category, ticket_price, passengers) VALUES
+(1, 'Alice', 'Paris', 'International', 800, 2),
+(2, 'Bob', 'New York', 'International', 900, 1),
+(3, 'Charlie', 'Tokyo', 'International', 1200, 3),
+(4, 'David', 'Miami', 'Domestic', 250, 4),
+(5, 'Emma', 'Paris', 'International', 800, 1),
+(6, 'Frank', 'Chicago', 'Domestic', 150, 2),
+(7, 'Grace', 'Miami', 'Domestic', 250, 2);
+---
+
+ 15 Practice Questions & Expected Outputs
+
+ Q1:
+
+Task: Select the `customer_name` and `destination` for all bookings.
+
+| customer_name | destination |
+ --- |
+| Alice | Paris |
+| Bob | New York |
+| Charlie | Tokyo |
+| David | Miami |
+| Emma | Paris |
+| Frank | Chicago |
+| Grace | Miami |
+
+---
+
+ Q2:
+
+Task: Find all details for bookings where the `category` is 'Domestic'.
+
+| booking_id | customer_name | destination | category | ticket_price | passengers |
+ ---  ---  --- |
+| 4 | David | Miami | Domestic | 250 | 4 |
+| 6 | Frank | Chicago | Domestic | 150 | 2 |
+| 7 | Grace | Miami | Domestic | 250 | 2 |
+
+---
+
+ Q3:
+
+Task: Show all the unique (different) ticket prices available.
+
+| ticket_price |
+
+| 800 |
+| 900 |
+| 1200 |
+| 250 |
+| 150 |
+
+---
+
+ Q4:
+
+Task: Count how many total bookings exist in the table.
+
+| total_bookings |
+
+| 7 |
+
+---
+
+ Q5:
+
+Task: Find the total number of all `passengers` traveling.
+
+| total_passengers |
+
+| 15 |
+
+---
+
+ Q6:
+
+Task: Find the cheapest ticket price and the most expensive ticket price.
+
+| cheapest | costliest |
+ --- |
+| 150 | 1200 |
+
+---
+
+ Q7:
+
+Task: Find the average `ticket_price` for all flights.
+
+| average_price |
+
+| 621.43 |
+
+---
+
+ Q8:
+
+Task: Find all bookings where the total passengers are more than 2.
+
+| booking_id | customer_name | destination | passengers |
+ ---  --- |
+| 3 | Charlie | Tokyo | 3 |
+| 4 | David | Miami | 4 |
+
+---
+
+ Q9:
+
+Task: Group by `category` and find out how many bookings each category has.
+
+| category | total_bookings |
+ --- |
+| International | 4 |
+| Domestic | 3 |
+
+---
+
+ Q10:
+
+Task: Group by `destination` and find the total number of passengers traveling to each place.
+
+| destination | total_passengers |
+ --- |
+| Paris | 3 |
+| New York | 1 |
+| Tokyo | 3 |
+| Miami | 6 |
+| Chicago | 2 |
+
+---
+
+ Q11:
+
+Task: For each `category`, show the minimum price and maximum price.
+
+| category | min_price | max_price |
+ --- 
+| International | 800 | 1200 |
+| Domestic | 150 | 250 |
+
+---
+
+
+
+ Q12:
+
+Task: Group by `destination` and show only those destinations that have more than 1 booking.
+
+| destination | booking_count |
+ --- |
+| Paris | 2 |
+| Miami | 2 |
+
+---
+
+ Q13:
+Task: Group by `destination` and show the total passengers for each, but *only* if the total passengers for that destination is greater than 2.
+
+| destination | total_passengers |
+ --- |
+| Paris | 3 |
+| Tokyo | 3 |
+| Miami | 6 |
+
+---
+
+ Q14:
+
+Task: Look *only* at 'International' flights. Group them by `destination` and calculate the average price. Only show the destination if that average price is more than 800.
+
+| destination | avg_price |
+ --- |
+| New York | 900.00 |
+| Tokyo | 1200.00 |
+
+*(Note: Paris is left out because its average is exactly 800, which is not more than 800).*
