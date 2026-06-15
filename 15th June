@@ -91,3 +91,52 @@ order by salary asc, name asc limit 1 offset 2;
 
 
 
+
+create database order_db;
+use order_db;
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    restaurant VARCHAR(100),
+    food_item VARCHAR(100),
+    category VARCHAR(50),
+    price INT
+);
+INSERT INTO Orders (order_id, restaurant, food_item, category, price) VALUES
+(1, 'A1 Bistro', 'Burger', 'Fast Food', 200),
+(2, 'A1 Bistro', 'Pizza', 'Fast Food', 400),
+(3, 'Spice Hub', 'Biryani', 'Indian', 300),
+(4, 'Spice Hub', 'Pasta', 'Italian', 250),
+(5, 'Food Court', 'Burger', 'Fast Food', 180),
+(6, 'Food Court', 'Pizza', 'Fast Food', 350),
+(7, 'Spice Hub', 'Biryani', 'Indian', 320);
+
+
+
+
+-- 1) Display the restaurant name along with the total price
+select restaurant, sum(price) from orders group by restaurant;
+
+-- 2) Display the restaurant name along 
+-- with the max order price  
+
+
+select restaurant, max(price) 
+from orders group by restaurant 
+having max(price) > 350
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
