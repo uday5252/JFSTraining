@@ -34,7 +34,58 @@ select count(age) as totalAgeCount from employees;
 
 -- to count age without duplicates 
 select count(distinct age) as uniqueAgeCount from employees;
+select id, name, 'INDIA' as country from employees;
 
+
+-- display employeed whose salary > 50000
+select name, salary from employees where salary > 50000;
+
+
+-- display employees who belongs to developer
+select name from employees where jobrole = "Developer";
+
+-- display emp name, salary, age whose age is 35
+select name, salary, age from employees where age = 35;
+
+-- % ==> any no of characters
+-- _ ==> exactly one character
+-- display emp names whose name starts with R
+select name from employees where name like 'R%';
+
+select name from employees where name like 'J%';
+
+select name from employees where name like 'Ram%';
+
+select name from employees where name like 'Ra_u';
+
+select name from employees where name like '__u';
+
+select name from employees where name like 'R_%';
+
+select name from employees where name like '_%';
+
+
+-- display the name of the employee who gets more salary
+select name from employees order by salary desc limit 1;
+
+
+
+-- display the employee name and salary who earns less
+select name,salary from employees order by salary asc limit 1;
+
+
+-- display the employee name who earns the 2nd highest salary
+select name from employees order by salary desc 
+limit 1 offset 1;
+
+
+-- display the employee name who earns 3rd lowest salary
+select name, salary from employees order by salary asc
+limit 1 offset 2;
+
+
+select name, salary from employees 
+order by salary asc, name asc limit 1 offset 2;
 
 
 
