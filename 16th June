@@ -1,0 +1,129 @@
+
+
+
+
+CREATE DATABASE school_db;
+USE school_db;
+
+CREATE TABLE Student (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO Student (student_id, student_name, marks) VALUES
+(1, 'Sunil', 95),
+(2, 'Ravi', 78),
+(3, 'Priya', 65),
+(4, 'John', 45),
+(5, 'Meera', 88);
+
+
+INSERT INTO Student (student_id, student_name, marks) VALUES
+(6, 'Martin', 20);
+
+
+
+-- select student_name, marks,
+-- case
+-- 	when marks > 35 then "Pass"
+--   else "Fail"
+-- end as status
+-- from student;
+
+-- Display the student_name, marks and grade
+-- > 85 ==> A
+-- > 65 ==> B
+-- > 35 ==> C
+-- < 35 ==> F
+
+
+select student_name, marks,
+case
+	when marks > 85 then "A"
+  when marks > 65 then "B"
+  when marks > 35 then "C"
+  else "F"
+end as grade
+from student;
+
+
+-- delimiter //
+-- create procedure fetchAllStudents()
+-- begin
+-- 	select * from student;
+-- end
+-- //
+-- call fetchAllStudents()
+
+
+
+use school_db;
+delimiter //
+create procedure fetchParticularStudentss(in recievedMarks int)
+begin
+	select * from student where marks > recievedMarks;
+end
+//
+call fetchParticularStudentss(70);
+call fetchParticularStudentss(50);
+
+=================================
+-- Create Database
+CREATE DATABASE company_db;
+
+-- Use Database
+USE company_db;
+
+-- Create Table
+CREATE TABLE employee_sales (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    dept VARCHAR(20),
+    salary DECIMAL(10,2),
+    sales INT,
+    month VARCHAR(10)
+);
+
+-- Insert Data
+INSERT INTO employee_sales
+(emp_id, emp_name, dept, salary, sales, month)
+VALUES
+(1, 'Rahul Sharma',    'IT', 5000, 10, 'Jan'),
+(2, 'Priya Verma',     'IT', 6000, 20, 'Jan'),
+(3, 'Amit Kumar',      'HR', 4000, 15, 'Jan'),
+(4, 'Sneha Reddy',     'HR', 4500, 25, 'Jan'),
+(5, 'Vikram Singh',    'IT', 7000, 30, 'Feb'),
+(6, 'Neha Patel',      'HR', 4200, 18, 'Feb');
+
+use company_db;
+select * from employee_sales;
+
+select dept, sum(salary) as totalSalary from employee_sales 
+group by dept;
+
+
+
+select dept, salary, 
+row_number() over (partition by dept order by salary desc) 
+as ranking
+from employee_sales;
+
+select dept, salary, 
+rank() over (order by salary desc) 
+as ranking
+from employee_sales;
+
+select dept, salary, 
+row_number() over (order by salary desc) 
+as ranking
+from employee_sales;
+
+select dept, salary, 
+dense_rank() over (order by salary desc) 
+as ranking
+from employee_sales;
+
+
+select dept, salary, max(salary) 
+over (partition by dept ) as highestSalary from employee_sales;
