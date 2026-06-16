@@ -32,3 +32,43 @@ public class First {
 
 	}
 }
+
+====================================================================
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Second {
+
+	public static void main(String args[]) throws SQLException
+	{
+		String url = "jdbc:mysql://localhost:3306/employee_db";
+		String username = "root";
+		String password = "root";
+		
+		Connection con = 
+				DriverManager.getConnection(url, username, password);
+		
+		System.out.println("Database connection successful!");
+		
+		String insertQuery = "insert into "
+				+ "employees(id, name, age, salary, jobrole)"
+				+ " values(?, ?, ?, ?, ?)";
+		
+		PreparedStatement compiledQuery = con.prepareStatement(insertQuery);
+		
+		compiledQuery.setInt(1, 200);
+		compiledQuery.setString(2, "Cook");
+		compiledQuery.setInt(3, 45);
+		compiledQuery.setInt(4, 56000);
+		compiledQuery.setString(5, "HR");
+		
+		int rowCount = 
+				compiledQuery.executeUpdate();
+		
+		System.out.println(rowCount);
+		System.out.println("Data inserted successfully!");
+		
+	}
+}
