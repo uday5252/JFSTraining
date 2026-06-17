@@ -36,3 +36,54 @@ public class Third {
 	}
 
 }
+======================================================
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Fourth {
+
+	public static void main(String[] args) throws SQLException {
+		
+		String url = "jdbc:mysql://localhost:3306/employee_db";
+		String username = "root";
+		String password = "root";
+		
+		Connection con = 
+				DriverManager.getConnection(url, username, password);
+		
+		System.out.println("Database connection successful!");
+		
+//		call the stored procedure(getEmployeesBasedOnAge())
+		
+		CallableStatement cs = 
+				con.prepareCall("{call getEmployeesBasedOnAge()}");
+		
+		ResultSet employeeDetails =
+				cs.executeQuery();
+		
+		while(employeeDetails.next())
+		{
+			System.out.println(employeeDetails.getInt("id"));
+			System.out.println(employeeDetails.getString("name"));
+			System.out.println(employeeDetails.getInt("age"));
+			System.out.println(employeeDetails.getInt("salary"));
+			System.out.println(employeeDetails.getString("jobrole"));
+			System.out.println("---------------------------------");
+		}
+
+	}
+
+}
+
+use employee_db;
+
+delimiter //
+create procedure getEmployeesBasedOnAge()
+begin
+	select * from employees where age > 40;
+end //
+
+======================================
