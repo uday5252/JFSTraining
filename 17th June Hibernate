@@ -1,0 +1,117 @@
+package com.abc.demo.FirstHibernateProject;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "books")
+public class BookEntity {
+	
+	@Id
+	private int bookId;
+	private String bookTitle;
+	private int bookPrice;
+	private String bookAuthor;
+	public int getBookId() {
+		return bookId;
+	}
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+	public String getBookTitle() {
+		return bookTitle;
+	}
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+	public int getBookPrice() {
+		return bookPrice;
+	}
+	public void setBookPrice(int bookPrice) {
+		this.bookPrice = bookPrice;
+	}
+	public String getBookAuthor() {
+		return bookAuthor;
+	}
+	public void setBookAuthor(String bookAuthor) {
+		this.bookAuthor = bookAuthor;
+	}
+	public BookEntity(int bookId, String bookTitle, int bookPrice, String bookAuthor) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookPrice = bookPrice;
+		this.bookAuthor = bookAuthor;
+	}
+	public BookEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+		
+	
+	
+}
+=====================================================
+package com.abc.demo.FirstHibernateProject;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.abc.demo.FirstHibernateProject.BookEntity;
+
+
+public class InsertBookDetails {
+
+	public static void main(String[] args) {
+		
+		BookEntity b1 = new BookEntity();
+		b1.setBookId(12);
+		b1.setBookTitle("Java Programming!");
+		b1.setBookPrice(400);
+		
+		
+		BookEntity b2 = new BookEntity();
+		b2.setBookId(13);
+		b2.setBookTitle("Python Programming!");
+		b2.setBookPrice(300);
+		
+		
+		Configuration config = new Configuration();
+		config.configure("hibernate.cfg.xml");
+		
+		SessionFactory factory = 
+				config.buildSessionFactory();
+		
+		Session session = factory.openSession();//vehicle
+		
+		Transaction t = session.beginTransaction();
+		session.persist(b1);
+		session.persist(b2);
+		t.commit();
+		
+		
+
+	}
+
+}
+========================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+   "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
+   "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>  
+   <session-factory>  
+      <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/book_db</property>  
+      <property name="hibernate.connection.username">root</property>  
+      <property name="hibernate.connection.password">root</property>
+      <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property> 
+      <property name="hibernate.hbm2ddl.auto">update</property>
+      
+      
+      <mapping class="com.abc.demo.FirstHibernateProject.BookEntity" /> 
+   </session-factory>  
+</hibernate-configuration>
