@@ -1,0 +1,134 @@
+package com.abc.demo.FirstSpringBootMavenProject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FirstSpringBootMavenProjectApplication implements CommandLineRunner {
+
+	@Autowired
+	FoodService foodService;
+	
+	public static void main(String[] args) {
+		SpringApplication.run(FirstSpringBootMavenProjectApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		foodService.insertFoodDetails();
+	}
+
+}
+
+
+=============================================================
+
+package com.abc.demo.FirstSpringBootMavenProject;
+
+import org.springframework.context.annotation.ComponentScan;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "foods")
+public class FoodEntity {
+
+	@Id
+	private int foodID;
+	private String foodName;
+	private int foodCost;
+	private int foodRating;
+	
+	public FoodEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public FoodEntity(int foodID, String foodName, int foodCost, int foodRating) {
+		super();
+		this.foodID = foodID;
+		this.foodName = foodName;
+		this.foodCost = foodCost;
+		this.foodRating = foodRating;
+	}
+	public int getFoodID() {
+		return foodID;
+	}
+	public void setFoodID(int foodID) {
+		this.foodID = foodID;
+	}
+	public String getFoodName() {
+		return foodName;
+	}
+	public void setFoodName(String foodName) {
+		this.foodName = foodName;
+	}
+	public int getFoodCost() {
+		return foodCost;
+	}
+	public void setFoodCost(int foodCost) {
+		this.foodCost = foodCost;
+	}
+	public int getFoodRating() {
+		return foodRating;
+	}
+	public void setFoodRating(int foodRating) {
+		this.foodRating = foodRating;
+	}
+	
+	
+}
+
+=======================================================
+package com.abc.demo.FirstSpringBootMavenProject;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
+public interface FoodRepository  extends JpaRepository<FoodEntity, Integer> {
+}
+
+=====================================================
+package com.abc.demo.FirstSpringBootMavenProject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class FoodService {
+//	This FoodService class required methods which are present
+//	inside FoodRepository
+	
+	@Autowired
+	FoodRepository foodRepo;
+	
+	public void insertFoodDetails()
+	{
+		FoodEntity f1 = new FoodEntity();
+		f1.setFoodID(1);
+		f1.setFoodName("Idly");
+		f1.setFoodCost(100);
+		f1.setFoodRating(4);
+		
+		foodRepo.save(f1);
+		System.out.println("Data is saved successfully!");
+	}
+	
+	
+}
+
+=====================================================
+spring.application.name=FirstSpringBootMavenProject
+spring.datasource.url=jdbc:mysql://localhost:3306/food_db
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
